@@ -1,0 +1,28 @@
+{
+  "exportedAt": "2026-08-28",
+  "userCommands": {
+    "paths": [
+      "~/.cursor/commands/*.md",
+      "<project>/.cursor/commands/*.md"
+    ],
+    "configured": true,
+    "note": "Authored in this repo and symlinked into ~/.cursor/commands/. Both require the xcode-tools MCP.",
+    "commands": [
+      {
+        "name": "build",
+        "source": "Commands/build.md",
+        "link": "~/.cursor/commands/build.md",
+        "description": "Build the active Xcode scheme and report only meaningful errors and warnings"
+      },
+      {
+        "name": "test",
+        "source": "Commands/test.md",
+        "link": "~/.cursor/commands/test.md",
+        "description": "Run the test suite and report only failures with root-cause grouping"
+      }
+    ]
+  },
+  "builtinSlashCommands": {
+    "note": "Cursor built-in commands (debug, repro, in-cloud, no-test, etc.) are product defaults and not exported here"
+  }
+}

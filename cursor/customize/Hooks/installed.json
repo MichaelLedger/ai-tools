@@ -1,0 +1,31 @@
+{
+  "exportedAt": "2026-08-28",
+  "userHooks": {
+    "path": "~/.cursor/hooks.json",
+    "configured": true,
+    "note": "Hooks/hooks.json is symlinked to ~/.cursor/hooks.json; the script is symlinked to ~/.cursor/hooks/",
+    "hooks": [
+      {
+        "event": "afterFileEdit",
+        "command": "./hooks/swiftformat-edit.sh",
+        "source": "Hooks/scripts/swiftformat-edit.sh",
+        "requires": "swiftformat on PATH or at /opt/homebrew/bin/swiftformat",
+        "description": "Runs swiftformat on any .swift file the agent edits. Fails open - never blocks an edit."
+      }
+    ]
+  },
+  "pluginHooks": [
+    {
+      "plugin": "superpowers",
+      "source": "~/.cursor/plugins/cache/cursor-public/superpowers/d884ae04edebef577e82ff7c4e143debd0bbec99/hooks",
+      "files": [
+        "hooks-cursor.json",
+        "hooks.json",
+        "session-start",
+        "run-hook.cmd"
+      ],
+      "event": "sessionStart",
+      "description": "Injects using-superpowers skill context at session start"
+    }
+  ]
+}

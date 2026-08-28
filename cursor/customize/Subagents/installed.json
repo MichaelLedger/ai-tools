@@ -1,0 +1,21 @@
+{
+  "exportedAt": "2026-08-28",
+  "userSubagents": {
+    "path": "~/.cursor/agents/*.md",
+    "configured": true,
+    "note": "Authored in this repo and symlinked into ~/.cursor/agents/",
+    "agents": [
+      {
+        "name": "swift-reviewer",
+        "source": "Subagents/swift-reviewer.md",
+        "link": "~/.cursor/agents/swift-reviewer.md",
+        "description": "Reviews Swift diffs for concurrency, retain cycles, force unwraps, and API availability"
+      }
+    ]
+  },
+  "projectSubagents": {
+    "path": "<project>/.cursor/agents/*.md",
+    "configured": false,
+    "note": "No project subagents found under ~/Downloads"
+  }
+}

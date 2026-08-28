@@ -1,0 +1,71 @@
+---
+description: Guidelines for using Figma MCP integration in Cursor
+globs: ["**/*.tsx", "**/*.jsx", "**/*.css", "**/*.scss", "**/*.html"]
+alwaysApply: false
+---
+
+# Figma MCP Integration Rules
+
+## Overview
+
+This project has Figma MCP (Model Context Protocol) integration enabled, allowing you to fetch design data directly from Figma files and convert them to code.
+
+## Available MCP Tools
+
+### 1. `get_figma_data`
+
+Fetches comprehensive Figma file data including layout, content, visuals, and component information.
+
+**Parameters:**
+- `fileKey` (required): The Figma file key from the URL (e.g., `figma.com/file/<fileKey>/...`)
+- `nodeId` (optional): Specific node ID to fetch (format: `1234:5678`)
+- `depth` (optional): How many levels deep to traverse - only use when explicitly requested
+
+**Example Usage:**
+```
+To get data from a Figma file, extract the fileKey from the URL:
+https://www.figma.com/file/ABC123xyz/MyDesign → fileKey = "ABC123xyz"
+```
+
+### 2. `download_figma_images`
+
+Downloads SVG and PNG images from a Figma file.
+
+**Parameters:**
+- `fileKey` (required): The Figma file key
+- `nodes` (required): Array of node objects with:
+  - `nodeId`: The image node ID
+  - `fileName`: Output filename with extension (.png or .svg)
+  - `imageRef`: Required for image fills, leave blank for vectors
+- `localPath` (required): Absolute path to save images
+- `pngScale` (optional): Export scale for PNGs, defaults to 2
+
+## Best Practices
+
+1. **Always start with `get_figma_data`** to understand the design structure before generating code
+2. **Use node IDs** when available in the URL (node-id parameter) for more targeted fetching
+3. **Download images separately** using `download_figma_images` for any icons, illustrations, or photos
+4. **Respect the design system** - look for consistent spacing, colors, and typography patterns
+5. **Generate semantic HTML** that matches the design hierarchy
+
+## Workflow for Figma-to-Code
+
+1. Receive Figma URL from user
+2. Extract fileKey and nodeId from the URL
+3. Call `get_figma_data` to fetch design data
+4. Analyze the returned structure, styles, and components
+5. Download any required images with `download_figma_images`
+6. Generate appropriate code (React, HTML/CSS, etc.) based on the design
+
+## Common URL Patterns
+
+```
+Figma File:    figma.com/file/<fileKey>/<fileName>
+Figma Design:  figma.com/design/<fileKey>/<fileName>?node-id=<nodeId>
+```
+
+## Notes
+
+- The MCP server requires a valid Figma API key configured in `.cursor/mcp.json`
+- For production, store API keys securely using environment variables
+- Rate limits apply to the Figma API - avoid excessive requests

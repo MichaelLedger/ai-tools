@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "xcode-tools": {
+      "command": "xcrun",
+      "args": [
+        "mcpbridge"
+      ]
+    },
+    "Framelink Figma MCP": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-developer-mcp",
+        "--figma-api-key=YOUR_FIGMA_API_KEY",
+        "--stdio"
+      ]
+    },
+    "github": {
+      "command": "/Users/gavinxiang/Work/AI/servers/src/github/github-start.sh",
+      "args": []
+    }
+  }
+}

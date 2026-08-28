@@ -1,0 +1,49 @@
+{
+  "exportedAt": "2026-08-28",
+  "workspace": "file:///Users/gavinxiang/Downloads/ai-tools",
+  "installedPluginIds": [
+    {
+      "id": "657",
+      "sources": [
+        "user"
+      ]
+    },
+    {
+      "id": "684",
+      "sources": [
+        "user"
+      ]
+    },
+    {
+      "id": "717",
+      "sources": [
+        "user"
+      ]
+    },
+    {
+      "id": "48677658",
+      "sources": [
+        "user"
+      ]
+    }
+  ],
+  "plugins": {
+    "figma": {
+      "cachePath": "~/.cursor/plugins/cache/cursor-public/figma/7f6562c4900fafb46e5e8fd3cc8ced954779bab3",
+      "version": "2.2.96"
+    },
+    "github": {
+      "cachePath": "~/.cursor/plugins/cache/cursor-public/github/397c8660da6d3d873a91e18c2ca2f22cac1f0ac1",
+      "version": "1.0.0"
+    },
+    "atlassian": {
+      "cachePath": "~/.cursor/plugins/cache/cursor-public/atlassian/19f71578abc4e52543505b362c0b6e456a8a80d3",
+      "marketplaceId": "717",
+      "version": "0.1.0"
+    },
+    "superpowers": {
+      "cachePath": "~/.cursor/plugins/cache/cursor-public/superpowers/d884ae04edebef577e82ff7c4e143debd0bbec99",
+      "version": "6.1.1"
+    }
+  }
+}

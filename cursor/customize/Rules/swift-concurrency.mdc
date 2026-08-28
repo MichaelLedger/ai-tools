@@ -1,0 +1,46 @@
+---
+description: Swift concurrency standards - actor isolation, structured concurrency, Sendable
+globs: **/*.swift
+alwaysApply: false
+---
+
+# Swift Concurrency
+
+## Actor isolation
+
+Declare isolation on the type. Do not patch it at the call site.
+
+```swift
+// ❌ BAD - UI mutated from an arbitrary executor, then hand-hopped
+func load() async {
+    let items = await api.fetch()
+    DispatchQueue.main.async { self.items = items }
+}
+
+// ✅ GOOD - isolation is part of the type's contract
+@MainActor
+final class FeedViewModel: ObservableObject {
+    @Published private(set) var items: [Item] = []
+
+    func load() async {
+        items = await api.fetch()
+    }
+}
+```
+
+Annotate view models and any type that publishes UI state with `@MainActor`.
+
+## Structured concurrency
+
+- Prefer `async let` and `TaskGroup` over `DispatchGroup` or nested completion handlers.
+- Store any `Task` you start from a view or controller, and cancel it on teardown.
+- Never block waiting on async work. `semaphore.wait()` and `DispatchQueue.sync` from an async context can deadlock the cooperative thread pool.
+
+## Sendable
+
+- Types crossing an actor boundary must be `Sendable`. Prefer value types.
+- Use `@unchecked Sendable` only when the type is genuinely immutable or guards its own state with a lock, and add a comment naming the invariant that makes it safe.
+
+## Reentrancy
+
+An actor can process other messages while suspended. After every `await` inside an actor, re-read any state you captured before the suspension instead of assuming it is unchanged.

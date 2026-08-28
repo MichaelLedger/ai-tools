@@ -1,0 +1,34 @@
+---
+description: Swift memory management - capture lists, retain cycles, optional safety
+globs: **/*.swift
+alwaysApply: false
+---
+
+# Memory and Capture Semantics
+
+## Escaping closures
+
+Use `[weak self]` in any escaping closure that is stored on `self` or outlives the call. Non-escaping closures (`map`, `filter`, `forEach`) need no capture list.
+
+```swift
+// ❌ BAD - cycle: self → client → closure → self
+client.onUpdate = { self.reload() }
+
+// ✅ GOOD
+client.onUpdate = { [weak self] in self?.reload() }
+```
+
+## weak vs unowned
+
+Default to `weak`. Use `unowned` only when the captured object is guaranteed to outlive the closure, such as a parent that owns the child for its whole lifetime. A wrong `weak` leaks; a wrong `unowned` crashes.
+
+## Common cycle sources
+
+- **Combine**: store subscriptions in `cancellables` and capture `[weak self]` in `sink`. Note that `assign(to:on: self)` retains `self` strongly.
+- **Delegates**: declare `weak var delegate: FooDelegate?` and constrain the protocol to `AnyObject`.
+- **Timers**: `Timer.scheduledTimer(target:)` retains its target. Invalidate explicitly on teardown.
+- **NotificationCenter**: block-based observers must have their returned token stored and removed.
+
+## Optional safety
+
+No force unwrapping (`!`) outside tests and `@IBOutlet` declarations. Use `guard let` with an explicit failure path so the reason for the early return is visible.

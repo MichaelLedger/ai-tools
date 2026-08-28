@@ -1,0 +1,51 @@
+---
+description: Add author and copyright headers when creating new source files
+alwaysApply: true
+---
+
+# New File Author and Copyright Header
+
+When creating a **new source file**, add an author/copyright header. Do **not** add this when only editing an existing file.
+
+## Author and date
+
+- Author is the **current logged-in system user**, not a hardcoded name.
+  - Prefer the account full/display name: on macOS run `id -F` (e.g. `Jane Appleseed`).
+  - If that is empty, use the login name from `$USER` or `whoami`.
+- Date is the **actual creation date** as `M/D/YY` (e.g. `9/17/25`)
+- Copyright year matches the creation year
+
+## Copyright holder
+
+Do **not** hardcode a company name.
+
+For an Xcode project, the holder is the project's **Organization**:
+- Read `ORGANIZATIONNAME` from `*.xcodeproj/project.pbxproj` (usually under `PBXProject` `attributes`).
+- Example: `ORGANIZATIONNAME = ExampleOrg;` → `Copyright © 2026 ExampleOrg. All rights reserved.`
+- If several `.xcodeproj` files exist, use the one that owns the new file (nearest project / the app target being edited).
+
+If there is no Xcode project or `ORGANIZATIONNAME` is missing:
+- Copy the holder from nearby existing source headers in this repo.
+- Do not invent a holder.
+
+## Layout
+
+1. Match nearby existing source files (comment syntax, extra lines like filename/project).
+2. If the project has no headers, use the shortest form for the language:
+
+```
+Created by <System User> on 9/17/25.
+Copyright © 2025 <Organization>. All rights reserved.
+```
+
+## Comment syntax
+
+Match the file type: `//` for ObjC/Swift/JS/TS, `#` for Python/Shell, `/* */` or `<!-- -->` only if that is what the project uses.
+
+## Do not add headers to
+
+- Existing files
+- Generated, vendored, or lock files (`Pods/`, `node_modules/`, `*.lock`, `Package.resolved`)
+- JSON, plist, strings catalogs, assets, and other data files
+- Markdown/docs unless the user asks
+- Files in a project that clearly uses SPDX-only or no file headers
